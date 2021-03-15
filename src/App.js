@@ -46,8 +46,9 @@ function App() {
     setState({...state, selectedNote: state.notes[newNoteIndex], selectedNoteIndex: newNoteIndex})
   }
 
-  const deleteNote = (note) => {
+  const deleteNote = async(note) => {
     const noteIndex = state.notes.indexOf(note);
+    await setState({...state, notes:state.notes.filter((n) => n !== note)});
     if (state.selectedNote === noteIndex) {
       setState({...state, selectedNoteIndex: null, selectedNote: null});
     } else {
@@ -55,6 +56,12 @@ function App() {
         selectNote(state.notes[state.selectedNoteIndex-1], state.selectedNoteIndex - 1)
         : setState({...state, selectedNoteIndex: null, selectedNote: null});
     } 
+
+    firebase
+      .firestore()
+      .collection("notes")
+      .doc(note.id)
+      .delete();
   }
 
   
@@ -68,8 +75,7 @@ function App() {
           const data = doc.data();
           data["id"] = doc.id;
           return data;
-        });
-        console.log(notes);
+        }); 
         setState({ notes: notes });
       });
   }, []);

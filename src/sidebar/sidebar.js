@@ -8,17 +8,25 @@ import SidebarItemComponent from "../sidebaritem/sidebarItem";
 const SideBarComponent = ({notes, selectedNoteIndex, selectNote, newNote, deleteNote}) => { 
   const [state, setState] = useState({addingNote: false, title: null});
 
-  const newNoteBtnClick = () =>{
-    console.log("New BTN CLICKED");
+  const newNoteBtnClick = () =>{ 
     setState({...state, addingNote: !state.addingNote});
   }
   
   const updateTitle = (text) =>{
     setState({...state, title: text});
   }
+
   const addnewNote = () => {
     newNote(state.title);
     setState({title: null, addingNote: false});
+  }
+  
+  const selectTheNote = (n, i) => {
+    selectNote(n, i);
+  }
+
+  const deleteTheNote = (note) => {
+    deleteNote(note);
   }
 
   if (notes) {
@@ -89,7 +97,7 @@ const SideBarComponent = ({notes, selectedNoteIndex, selectNote, newNote, delete
                     index={index}
                     selectedNoteIndex={selectedNoteIndex}
                     selectNote={selectNote}
-                    deleteNote={deleteNote}
+                    deleteNote={deleteTheNote}
                   > 
                   </SidebarItemComponent>
                   <Divider></Divider>

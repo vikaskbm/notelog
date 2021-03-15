@@ -35,6 +35,32 @@ const EditorComponent = ({selectedNoteIndex, selectedNote, notes, noteUpdate}) =
   return (
     <div style={{height: "100%",
     boxSizing: "border-box"}}>
+      <BorderColorIcon style={{
+          position: "absolute",
+          left: "310px",
+          top: "12px",
+          color: "white",
+          width: "10",
+          height: "10",
+        }}
+      ></BorderColorIcon>
+      <input 
+        type="text" 
+        style={{
+          height: "50px",
+          boxSizing: "border-box",
+          border: "none",
+          padding: "5px",
+          fontSize: "24px",
+          width: "calc(100% - 300px)",
+          backgroundColor: "#29487d",
+          color: "white",
+          paddingLeft: "50px",
+        }} 
+        placeholder="Note Title..."
+        value={state.title ? state.title : ''}
+        onChange={(e) => updateTitle(e.target.value)}
+      />
       <ReactQuill value={state.text} onChange={updateBody}></ReactQuill>
     </div>
   );
