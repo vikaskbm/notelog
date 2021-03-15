@@ -80,4 +80,4 @@ const EditorComponent = ({
   );
 };
 
-export default withStyles(styles)(EditorComponent);
+export default EditorComponent;

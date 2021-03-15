@@ -118,4 +118,4 @@ const SideBarComponent = ({
   }
 };
 
-export default withStyles(styles)(SideBarComponent);
+export default SideBarComponent;

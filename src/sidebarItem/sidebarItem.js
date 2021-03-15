@@ -46,4 +46,4 @@ const SidebarItemComponent = ({
   );
 };
 
-export default withStyles(styles)(SidebarItemComponent);
+export default SidebarItemComponent;
