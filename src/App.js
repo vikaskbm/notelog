@@ -14,9 +14,36 @@ function App() {
   const selectNote = (note, index) => {
     setState({...state, selectedNoteIndex: index, selectedNote: note});
   }
+
+  const noteUpdate = (id, noteObj) => {
+    if (id) {
+    firebase.firestore().collection('notes').doc(id).update({
+      title: noteObj.title,
+      body: noteObj.text,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })}    
+  }
   
-  const newNote = (n, i) =>{
-    console.log(state);
+  const newNote = async(title) =>{
+    const note = {
+      title: title,
+      body: '',
+    }
+
+    const newFromDB = await firebase
+      .firestore
+      .collection("notes")
+      .add({
+        title: note.title,
+        body: note.body,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+
+    const newID = newFromDB.id;
+
+    await setState({ notes: [ ...state.notes, note ]});
+    const newNoteIndex = state.notes.indexOf(state.notes.filter((n) => n.id == newID)[0]);
+    setState({...state, selectedNote: state.notes[newNoteIndex], selectedNoteIndex: newNoteIndex})
   }
 
   const deleteNote = (note) => {
@@ -58,7 +85,8 @@ function App() {
           <EditorComponent 
           selectedNoteIndex={state.selectedNoteIndex}
           selectedNote={state.selectedNote}
-          notes={state.notes}    
+          notes={state.notes}
+          noteUpdate={noteUpdate}  
           /> :
           null
       }

@@ -8,7 +8,7 @@ import styles from './styles';
 
 const WAIT_INTERVAL = 1500;
 
-const EditorComponent = ({selectedNoteIndex, selectedNote, notes}) => {
+const EditorComponent = ({selectedNoteIndex, selectedNote, notes, noteUpdate}) => {
   const [state, setState] = useState({
     text: "",
     title: "",
@@ -18,18 +18,18 @@ const EditorComponent = ({selectedNoteIndex, selectedNote, notes}) => {
 
 
   useEffect(() => {
-    setState({...state, text:selectedNote.body, title:selectedNote.title, id: selectedNote.id})
+    setState({text:selectedNote.body, title:selectedNote.title, id: selectedNote.id})
   }, [selectedNote])
 
 
-  const updateBody = (val) =>{
+  const updateBody = async(val) =>{
     clearTimeout(timer);
-    setState({ text: val });
+    await setState({ title:selectedNote.title, id: selectedNote.id, text: val });
     setTimer(setTimeout(update, WAIT_INTERVAL));
   }
 
   const update = () => { 
-    console.log("update");
+    noteUpdate(state.id, {title: state.title, text: state.text }); 
   } 
 
   return (
