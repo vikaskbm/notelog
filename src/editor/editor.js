@@ -28,6 +28,12 @@ const EditorComponent = ({selectedNoteIndex, selectedNote, notes, noteUpdate}) =
     setTimer(setTimeout(update, WAIT_INTERVAL));
   }
 
+  const updateTitle = async (text) => {
+    clearTimeout(timer);
+    await setState({...state, title: text});
+    setTimer(setTimeout(update, WAIT_INTERVAL));
+  }
+
   const update = () => { 
     noteUpdate(state.id, {title: state.title, text: state.text }); 
   } 
