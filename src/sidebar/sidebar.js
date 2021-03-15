@@ -16,6 +16,10 @@ const SideBarComponent = ({notes, selectedNoteIndex, selectNote, newNote, delete
   const updateTitle = (text) =>{
     setState({...state, title: text});
   }
+  const addnewNote = () => {
+    newNote(state.title);
+    setState({title: null, addingNote: false});
+  }
 
   if (notes) {
     return (
@@ -68,7 +72,7 @@ const SideBarComponent = ({notes, selectedNoteIndex, selectNote, newNote, delete
                   borderRadius: '0px',
                   color: 'white'
                 }}
-                onClick={newNote}
+                onClick={addnewNote}
               >
                 Submit Note
               </Button>

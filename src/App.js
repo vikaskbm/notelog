@@ -31,7 +31,7 @@ function App() {
     }
 
     const newFromDB = await firebase
-      .firestore
+      .firestore()
       .collection("notes")
       .add({
         title: note.title,
@@ -47,11 +47,14 @@ function App() {
   }
 
   const deleteNote = (note) => {
-    if(window.confirm(`Are you sure you want to delete: ${note.title}`)) {
-      console.log("Note deleted");
+    const noteIndex = state.notes.indexOf(note);
+    if (state.selectedNote === noteIndex) {
+      setState({...state, selectedNoteIndex: null, selectedNote: null});
     } else {
-      console.log("NOT deleted");
-    }
+      state.notes.length > 1 ? 
+        selectNote(state.notes[state.selectedNoteIndex-1], state.selectedNoteIndex - 1)
+        : setState({...state, selectedNoteIndex: null, selectedNote: null});
+    } 
   }
 
   
