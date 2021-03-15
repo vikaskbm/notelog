@@ -1,47 +1,55 @@
 import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
-import debounce from "../helpers";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import { withStyles } from "@material-ui/core/styles";
-import styles from './styles';
-
 
 const WAIT_INTERVAL = 1500;
 
-const EditorComponent = ({selectedNoteIndex, selectedNote, notes, noteUpdate}) => {
+const EditorComponent = ({
+  selectedNoteIndex,
+  selectedNote,
+  notes,
+  noteUpdate,
+}) => {
   const [state, setState] = useState({
     text: "",
     title: "",
     id: "",
   });
-  const [timer, setTimer] = useState(null);   
-
+  const [timer, setTimer] = useState(null);
 
   useEffect(() => {
-    setState({text:selectedNote.body, title:selectedNote.title, id: selectedNote.id})
-  }, [selectedNote])
+    setState({
+      text: selectedNote.body,
+      title: selectedNote.title,
+      id: selectedNote.id,
+    });
+  }, [selectedNote]);
 
-
-  const updateBody = async(val) =>{
+  const updateBody = async (val) => {
     clearTimeout(timer);
-    await setState({ title:selectedNote.title, id: selectedNote.id, text: val });
+    await setState({
+      title: selectedNote.title,
+      id: selectedNote.id,
+      text: val,
+    });
     setTimer(setTimeout(update, WAIT_INTERVAL));
-  }
+  };
 
   const updateTitle = async (text) => {
     clearTimeout(timer);
-    await setState({...state, title: text});
+    await setState({ ...state, title: text });
     setTimer(setTimeout(update, WAIT_INTERVAL));
-  }
+  };
 
-  const update = () => { 
-    noteUpdate(state.id, {title: state.title, text: state.text }); 
-  } 
+  const update = () => {
+    noteUpdate(state.id, { title: state.title, text: state.text });
+  };
 
   return (
-    <div style={{height: "100%",
-    boxSizing: "border-box"}}>
-      <BorderColorIcon style={{
+    <div style={{ height: "100%", boxSizing: "border-box" }}>
+      <BorderColorIcon
+        style={{
           position: "absolute",
           left: "310px",
           top: "12px",
@@ -50,8 +58,8 @@ const EditorComponent = ({selectedNoteIndex, selectedNote, notes, noteUpdate}) =
           height: "10",
         }}
       ></BorderColorIcon>
-      <input 
-        type="text" 
+      <input
+        type="text"
         style={{
           height: "50px",
           boxSizing: "border-box",
@@ -62,9 +70,9 @@ const EditorComponent = ({selectedNoteIndex, selectedNote, notes, noteUpdate}) =
           backgroundColor: "#29487d",
           color: "white",
           paddingLeft: "50px",
-        }} 
+        }}
         placeholder="Note Title..."
-        value={state.title ? state.title : ''}
+        value={state.title ? state.title : ""}
         onChange={(e) => updateTitle(e.target.value)}
       />
       <ReactQuill value={state.text} onChange={updateBody}></ReactQuill>
