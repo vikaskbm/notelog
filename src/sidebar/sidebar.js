@@ -1,12 +1,69 @@
-import React from "react";
+import React, {useState} from "react";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import { Divider, Button } from "@material-ui/core";
-import styles from "./styles";
+import styles from './styles';
 import SidebarItemComponent from "../sidebaritem/sidebarItem";
 
-const SideBarComponent = () => {
-  return <h1>Hello from sidebar component</h1>;
+const SideBarComponent = ({notes, selectedNoteIndex}) => { 
+  const [state, setState] = useState({addingNote: false, title: null});
+
+  const newNoteBtnClick = () =>{
+    console.log("New BTN CLICKED");
+  }
+  
+  const updateTitle = (text) =>{
+    console.log("Displating ... -> ", text);
+  }
+
+  return (
+    <div style={{
+      marginTop: '0px',
+      width: '300px',
+      height: '100vh',
+      boxSizing: 'border-box',
+      float: 'left',
+      overflowY: 'scroll',
+      overflowX: 'hidden'
+    }}>
+      <Button onClick={newNoteBtnClick} style={{
+        width: '100%',
+        height: '35px',
+        borderBottom: '1px solid black',
+        borderRadius: '0px',
+        backgroundColor: '#29487d',
+        color: 'white',
+        '&:hover': {
+          backgroundColor: '#88a2ce'
+        }
+      }}> 
+        NEW NOTE 
+      </Button>   
+
+      {
+        state.addingNote ? (
+          <div>
+            <input 
+              type="text" 
+              style={{
+                width: '100%',
+                margin: '0px',
+                height: '35px',
+                outline: 'none',
+                border: 'none',
+                paddingLeft: '5px',
+                '&:focus': {
+                  outline: '2px solid rgba(81, 203, 238, 1)'
+                }
+              }} 
+              placeholder="Enter Note title"
+              onKeyUp = {(e) => updateTitle(e.target.value)}
+            />
+          </div>
+        ) : null
+      }
+    </div>
+  );
 };
 
 export default withStyles(styles)(SideBarComponent);

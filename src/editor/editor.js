@@ -3,7 +3,8 @@ import ReactQuill from "react-quill";
 import debounce from "../helpers";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import { withStyles } from "@material-ui/core/styles";
-import styles from "./styles";
+import styles from './styles';
+
 
 const WAIT_INTERVAL = 1500;
 
@@ -13,8 +14,7 @@ const EditorComponent = () => {
     title: "",
     id: "",
   });
-
-  const [timer, setTimer] = useState(null);  
+  const [timer, setTimer] = useState(null);   
 
   const updateBody = (val) =>{
     clearTimeout(timer);
@@ -22,12 +22,13 @@ const EditorComponent = () => {
     setTimer(setTimeout(update, WAIT_INTERVAL));
   }
 
-  const update = () => {
+  const update = () => { 
     console.log("update");
   } 
 
   return (
-    <div className={styles.editorContainer}>
+    <div style={{height: "100%",
+    boxSizing: "border-box"}}>
       <ReactQuill value={state.text} onChange={updateBody}></ReactQuill>
     </div>
   );
