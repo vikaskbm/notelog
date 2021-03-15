@@ -53,11 +53,15 @@ function App() {
         selectNote={selectNote}
         newNote={newNote}
       />
-      <EditorComponent 
-        selectedNoteIndex={state.selectedNoteIndex}
-        selectedNote={state.selectedNote}
-        notes={state.notes}    
-      />
+      {
+        state.selectedNote ? 
+          <EditorComponent 
+          selectedNoteIndex={state.selectedNoteIndex}
+          selectedNote={state.selectedNote}
+          notes={state.notes}    
+          /> :
+          null
+      }
     </div>
   );
 }
