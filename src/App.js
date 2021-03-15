@@ -10,6 +10,25 @@ function App() {
     notes: null,
   });
 
+
+  const selectNote = (note, index) => {
+    setState({...state, selectedNoteIndex: index, selectedNote: note});
+  }
+  
+  const newNote = (n, i) =>{
+    console.log(state);
+  }
+
+  const deleteNote = (note) => {
+    if(window.confirm(`Are you sure you want to delete: ${note.title}`)) {
+      console.log("Note deleted");
+    } else {
+      console.log("NOT deleted");
+    }
+  }
+
+  
+
   useEffect(() => {
     firebase
       .firestore()
@@ -27,8 +46,18 @@ function App() {
 
   return (
     <div className="app-container">
-      <SideBarComponent selectedNoteIndex={state.selectedNoteIndex} notes={state.notes}/>
-      <EditorComponent />
+      <SideBarComponent 
+        selectedNoteIndex={state.selectedNoteIndex}  
+        notes={state.notes}
+        deleteNote={deleteNote}
+        selectNote={selectNote}
+        newNote={newNote}
+      />
+      <EditorComponent 
+        selectedNoteIndex={state.selectedNoteIndex}
+        selectedNote={state.selectedNote}
+        notes={state.notes}    
+      />
     </div>
   );
 }

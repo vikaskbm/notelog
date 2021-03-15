@@ -5,7 +5,7 @@ import { Divider, Button } from "@material-ui/core";
 import styles from './styles';
 import SidebarItemComponent from "../sidebaritem/sidebarItem";
 
-const SideBarComponent = ({notes, selectedNoteIndex}) => { 
+const SideBarComponent = ({notes, selectedNoteIndex, selectNote, newNote, deleteNote}) => { 
   const [state, setState] = useState({addingNote: false, title: null});
 
   const newNoteBtnClick = () =>{
@@ -15,22 +15,6 @@ const SideBarComponent = ({notes, selectedNoteIndex}) => {
   
   const updateTitle = (text) =>{
     setState({...state, title: text});
-  }
-  
-  const newNote = (n, i) =>{
-    console.log(state);
-  }
-
-  const selectNote = () => {
-    console.log("select node");
-  }
-
-  const deleteNote = (note) => {
-    if(window.confirm(`Are you sure you want to delete: ${note.title}`)) {
-      console.log("Note deleted");
-    } else {
-      console.log("NOT deleted");
-    }
   }
 
   if (notes) {
