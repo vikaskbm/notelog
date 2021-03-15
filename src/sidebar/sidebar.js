@@ -9,4 +9,4 @@ const SideBarComponent = () => {
   return <h1>Hello from sidebar component</h1>;
 };
 
-export default SideBarComponent;
+export default withStyles(styles)(SideBarComponent);

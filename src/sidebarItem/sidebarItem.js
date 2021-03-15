@@ -6,8 +6,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import styles from "./styles";
 import { removeHTMLTags } from "../helpers";
 
-const SideBarItemComponent = () => {
+const SidebarItemComponent = () => {
   return <h1>Hello from sidebar-item component</h1>;
 };
 
-export default SideBarItemComponent;
+export default withStyles(styles)(SidebarItemComponent);

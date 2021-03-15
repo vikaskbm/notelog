@@ -1,7 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import firebase from "firebase";
-
+import SideBarComponent from "./sidebar/sidebar";
+import EditorComponent from "./editor/editor";
 function App() {
   const [state, setState] = useState({
     selectedNoteIndex: null,
@@ -25,8 +26,9 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Hello world</h1>
+    <div className="app-container">
+      <SideBarComponent />
+      <EditorComponent />
     </div>
   );
 }
