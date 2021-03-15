@@ -5,9 +5,9 @@ import SideBarComponent from "./sidebar/sidebar";
 import EditorComponent from "./editor/editor";
 function App() {
   const [state, setState] = useState({
-    selectedNoteIndex: '',
-    selectedNote: '',
-    notes: [],
+    selectedNoteIndex: null,
+    selectedNote: null,
+    notes: null,
   });
 
   useEffect(() => {
